@@ -40,13 +40,15 @@ namespace mediaprovider {
 namespace fuse {
 
 struct handle {
-    explicit handle(int fd, const RedactionInfo* ri, bool cached) : fd(fd), ri(ri), cached(cached) {
+    explicit handle(int fd, const RedactionInfo* ri, bool cached, bool passthrough)
+        : fd(fd), ri(ri), cached(cached), passthrough(passthrough) {
         CHECK(ri != nullptr);
     }
 
     const int fd;
     const std::unique_ptr<const RedactionInfo> ri;
     const bool cached;
+    const bool passthrough;
 
     ~handle() { close(fd); }
 };
